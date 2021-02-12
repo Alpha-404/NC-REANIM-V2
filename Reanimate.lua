@@ -393,7 +393,7 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	Joint(DeadChar["HumanoidRootPart"],CloneChar["HumanoidRootPart"],Vector3.new(0,0,0),Vector3.new(0,0,0))
 
 	for _,v in next, DeadChar:GetChildren() do
-		if v:IsA("Accessory") then
+		if v:IsA("Accessory") and CloneChar:FindFirstChild(v) then
 			Joint(v.Handle,CloneChar[v.Name].Handle,Vector3.new(0,0,0),Vector3.new(0,0,0))
 		end
 	end
