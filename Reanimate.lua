@@ -213,6 +213,7 @@ if char.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 	if CloneChar:FindFirstChild("ForceField") then
 		CloneChar.ForceField:Destroy() 
 	end
+	CloneChar.Head.face:Destroy()
 
 elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 
@@ -405,5 +406,7 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	if DeadChar.Head:FindFirstChild("Neck") then
 		game.Players.LocalPlayer.Character:BreakJoints()
 	end
+	
+	CloneChar.Head.face:Destroy()
 end
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Reanimated',Duration=5})
