@@ -8,35 +8,102 @@ end
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Loading Reanimate...',Duration=5})
 local p = game:GetService("Players").LocalPlayer
 local char = p.Character
-local UserInputService = game:GetService("UserInputService")
-local NC
 
-game:GetService("Players").LocalPlayer.Character.Archivable = true
+function Joint(Part0,Part1,Position,Angle)
+	local AlignPos = Instance.new('AlignPosition', Part1);
+	AlignPos.ApplyAtCenterOfMass = true;
+	AlignPos.MaxForce = 67752;
+	AlignPos.MaxVelocity = math.huge/9e110;
+	AlignPos.ReactionForceEnabled = false;
+	AlignPos.Responsiveness = 200;
+	AlignPos.RigidityEnabled = false;
+	local AlignOri = Instance.new('AlignOrientation', Part1);
+	AlignOri.MaxAngularVelocity = math.huge/9e110;
+	AlignOri.MaxTorque = 67752;
+	AlignOri.PrimaryAxisOnly = false;
+	AlignOri.ReactionTorqueEnabled = false;
+	AlignOri.Responsiveness = 200;
+	AlignOri.RigidityEnabled = false;
+	local AttachmentA=Instance.new('Attachment',Part1);
+	local AttachmentB=Instance.new('Attachment',Part0);
+	local AttachmentC=Instance.new('Attachment',Part1);
+	local AttachmentD=Instance.new('Attachment',Part0);
+	AttachmentC.Orientation = Angle
+	AttachmentA.Position = Position
+	AlignPos.Attachment1 = AttachmentA;
+	AlignPos.Attachment0 = AttachmentB;
+	AlignOri.Attachment1 = AttachmentC;
+	AlignOri.Attachment0 = AttachmentD;
+end
 
-local temp = Instance.new("Model", workspace)
-Instance.new("Humanoid",temp)
-temp.Name = "Fred"
-p.Character = temp
-if char:FindFirstChildOfClass("Humanoid"):FindFirstChild("Animator") then
-	char:FindFirstChildOfClass("Humanoid").Animator.Parent = temp.Humanoid
+game:GetService("Players").LocalPlayer.Character.Archivable = true 
+
+local CloneChar = game:GetService("Players").LocalPlayer.Character:Clone()
+
+game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 0 
+game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 0 
+game:GetService("Players").LocalPlayer.Character.Humanoid.AutoRotate = false
+
+local FalseChar = Instance.new("Model", workspace)
+FalseChar.Name = "TempChar"
+Instance.new("Part",FalseChar).Name = "Head" 
+Instance.new("Part",FalseChar).Name = "Torso" 
+Instance.new("Humanoid",FalseChar).Name = "Humanoid"
+game:GetService("Players").LocalPlayer.Character = FalseChar
+game:GetService("Players").LocalPlayer.Character.Humanoid.Name = "Fake"
+
+local Clone = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fake"):Clone()
+Clone.Parent = game:GetService("Players").LocalPlayer.Character
+Clone.Name = "Humanoid"
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fake"):Destroy() 
+game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0 
+game:GetService("Players").LocalPlayer.Character = workspace[game:GetService("Players").LocalPlayer.Name] 
+wait(5.2) 
+game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
+CloneChar.Parent = workspace
+CloneChar.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,2,0)
+wait() 
+CloneChar.Humanoid.BreakJointsOnDeath = false
+workspace.Camera.CameraSubject = CloneChar.Humanoid 
+CloneChar.Name = "Rig" 
+CloneChar.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+
+if CloneChar.Head:FindFirstChild("face") then 
+	CloneChar.Head:FindFirstChild("face"):Destroy() 
 end
-local rig
-if char:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R15 then
-	rig = "R15"
-else
-	rig = "R6"
+if workspace[game:GetService("Players").LocalPlayer.Name].Head:FindFirstChild("face") then 
+	workspace[game:GetService("Players").LocalPlayer.Name].Head:FindFirstChild("face").Parent = CloneChar.Head 
 end
-wait()
+
+FalseChar:Destroy()
+
+local DeadChar = workspace[game:GetService("Players").LocalPlayer.Name]
+
+local con
+function Noclip()
+	for idk,c in next, DeadChar:GetDescendants() do
+		if c:IsA("BasePart") then
+			c.CanCollide = false
+		end 
+	end
+	for idk,c in next, CloneChar:GetDescendants() do
+		if c:IsA("BasePart") then
+			c.CanCollide = false
+		end 
+	end
+end
+con = game:GetService("RunService").Stepped:Connect(Noclip)
+
 local Reset = Instance.new("BindableEvent")
 Reset.Event:Connect(function()
 	game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
 	Reset:Destroy()
+	DeadChar:Destroy()
+	CloneChar:Destroy()
 	local m = Instance.new("Model", workspace)
 	m.Name = "UwU"
 	local h = Instance.new("Humanoid", m)
-	char.Dummy:Destroy()
-	p.Character = char
-	p.Character:Destroy()
 	wait()
 	p.Character = m
 	wait()
@@ -45,103 +112,38 @@ Reset.Event:Connect(function()
 	m:Destroy()
 end)
 game:GetService("StarterGui"):SetCore("ResetButtonCallback", Reset)
-char.Humanoid:Destroy()
-local humanoid = Instance.new("Humanoid", char)
-humanoid.RequiresNeck = false
-humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-humanoid.HealthDisplayDistance = Enum.HumanoidHealthDisplayType.AlwaysOff
-if rig == "R15" then
-	humanoid.RigType = Enum.HumanoidRigType.R15
-	humanoid.HipHeight = 2.19
-else
-	humanoid.RigType = Enum.HumanoidRigType.R6
-end
-p.Character = char
-workspace.CurrentCamera.CameraSubject = char
-local BaseChar = char:Clone()
-wait(0.5)
-if char:FindFirstChild("Animate") then
-	char.Animate:Destroy()
-end
-if humanoid:FindFirstChild("Animator") then
-	humanoid:FindFirstChild("Animator"):Destroy()
-end
-wait()
-temp:Destroy()
 
-for i,v in pairs(BaseChar:GetChildren()) do
-	if v:IsA("Accessory") then 
-		v:Destroy() 
-	end
-	if v:IsA("BasePart") then
-		v.Transparency = 1
-	end
-	if v:IsA("ForceField") then
-		v:Destroy()
-	end
-end 
+Joint(DeadChar["Head"],CloneChar["Head"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+Joint(DeadChar["Torso"],CloneChar["Torso"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+Joint(DeadChar["Left Arm"],CloneChar["Left Arm"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+Joint(DeadChar["Right Arm"],CloneChar["Right Arm"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+Joint(DeadChar["Left Leg"],CloneChar["Left Leg"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+Joint(DeadChar["Right Leg"],CloneChar["Right Leg"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+Joint(DeadChar["HumanoidRootPart"],CloneChar["HumanoidRootPart"],Vector3.new(0,0,0),Vector3.new(0,0,0))
 
------------------------------------------------------------------------
-
-NC = game:GetService('RunService').Stepped:Connect(function()
-	if p.Character ~= nil then
-		for _, child in pairs(char:GetDescendants()) do
-			if child:IsA("BasePart") then
-				child.CanCollide = false
-			end
-		end
-		for _, child in pairs(BaseChar:GetDescendants()) do
-			if child:IsA("BasePart") then
-				child.CanCollide = false
-			end
-		end
-	end
-end)
-
-spawn(function()
-	p.CharacterAdded:Wait()
-	NC:Disconnect()
-end)
-
------------------------------------------------------------------------
-for i,c in pairs(char:GetChildren()) do
-	if c:IsA("BasePart") then
-		local att0 = Instance.new("Attachment",c)
-		att0.Orientation = Vector3.new(0, 0, 0)
-		att0.Position = Vector3.new(0, 0, 0)
-		att0.Name = c.Name
-
-		local att1 = Instance.new("Attachment",BaseChar[c.Name])
-
-		local ap = Instance.new("AlignPosition",c)
-		ap.Attachment0 = att0
-		ap.Attachment1 = att1
-		ap.RigidityEnabled = true 
-
-
-		local ao = Instance.new("AlignOrientation",c) 
-		ao.Attachment0 = att0
-		ao.Attachment1 = att1
-		ao.RigidityEnabled = true
+for _,v in next, DeadChar:GetChildren() do
+	if v:IsA("Accessory") then
+		Joint(v.Handle,CloneChar[v.Name].Handle,Vector3.new(0,0,0),Vector3.new(0,0,0))
 	end
 end
--------------------------------------------------------------------------
 
-Instance.new("BoolValue", BaseChar).Name = "NAP Client Reanim V2"
+for _,Bodyps in next, CloneChar:GetDescendants() do
+	if Bodyps:IsA("BasePart") or Bodyps:IsA("Part") then
+		Bodyps.Transparency = 1 
+	end 
+end
 
--------------------------------------------------------------------------
+local speed = 2
 
 for i,v in pairs(char:GetDescendants()) do
-	if v:IsA("Motor6D") and v.Name ~= "Neck" then
+	if v:IsA("Clothing") or v:IsA("ShirtGraphic") then
 		v:Destroy()
 	end
 end
 
-BaseChar.Parent = char
-p.Character = BaseChar
-BaseChar.Name = "Dummy"
-workspace.CurrentCamera.CameraSubject = BaseChar
-BaseChar.Head.face:Destroy()
+if c:FindFirstChild("ForceField") then
+	c.ForceField:Destroy() 
+end
 
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Reanimated',Duration=5})
 
