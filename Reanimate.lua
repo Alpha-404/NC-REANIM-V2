@@ -59,7 +59,7 @@ Clone.Name = "Humanoid"
 game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fake"):Destroy() 
 game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0 
 game:GetService("Players").LocalPlayer.Character = workspace[game:GetService("Players").LocalPlayer.Name] 
-wait(5.2) 
+wait(game:GetService("Players").RespawnTime + 0.2)
 game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
 CloneChar.Parent = workspace
 CloneChar.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,2,0)
@@ -80,8 +80,7 @@ FalseChar:Destroy()
 
 local DeadChar = workspace[game:GetService("Players").LocalPlayer.Name]
 
-local con
-function Noclip()
+local NCL = game:GetService("RunService").Stepped:Connect(function()
 	for idk,c in next, DeadChar:GetDescendants() do
 		if c:IsA("BasePart") then
 			c.CanCollide = false
@@ -92,12 +91,69 @@ function Noclip()
 			c.CanCollide = false
 		end 
 	end
+end)
+
+local LookVectorP = Instance.new("Part", workspace) 
+LookVectorP.CanCollide = false 
+LookVectorP.Transparency = 1
+local ConvertVector = game:GetService("RunService").Heartbeat:Connect(function()
+	local lookVec = workspace.Camera.CFrame.lookVector
+	local Root = CloneChar["HumanoidRootPart"]
+	LookVectorP.Position = Root.Position
+	LookVectorP.CFrame = CFrame.new(LookVectorP.Position, Vector3.new(lookVec.X * 9999, lookVec.Y, lookVec.Z * 9999))
+end)
+
+local WDown, ADown, SDown, DDown, SpaceDown = false, false, false, false, false
+
+local KD = game:GetService("UserInputService").InputBegan:Connect(function(K, gay)
+	if gay then return end
+	if K.KeyCode == Enum.KeyCode.W then
+		WDown = true 
+	end
+	if K.KeyCode == Enum.KeyCode.A then
+		ADown = true 
+	end
+	if K.KeyCode == Enum.KeyCode.S then
+		SDown = true 
+	end
+	if K.KeyCode == Enum.KeyCode.D then
+		DDown = true 
+	end
+	if K.KeyCode == Enum.KeyCode.Space then
+		SpaceDown = true 
+	end 
+end)
+
+local KU = game:GetService("UserInputService").InputEnded:Connect(function(K)
+	if K.KeyCode == Enum.KeyCode.W then
+		WDown = false 
+	end
+	if K.KeyCode == Enum.KeyCode.A then
+		ADown = false 
+	end
+	if K.KeyCode == Enum.KeyCode.S then
+		SDown = false 
+	end
+	if K.KeyCode == Enum.KeyCode.D then
+		DDown = false 
+	end
+	if K.KeyCode == Enum.KeyCode.Space then
+		SpaceDown = false 
+	end
+end)
+
+function MoveClone(X,Y,Z)
+	LookVectorP.CFrame = LookVectorP.CFrame * CFrame.new(-X,Y,-Z)
+	CloneChar.Humanoid.WalkToPoint = LookVectorP.Position
 end
-con = game:GetService("RunService").Stepped:Connect(Noclip)
+
 
 local Reset = Instance.new("BindableEvent")
 Reset.Event:Connect(function()
 	game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
+	KU:Disconnect()
+	KD:Disconnect()
+	ConvertVector:Disconnect()
 	Reset:Destroy()
 	DeadChar:Destroy()
 	CloneChar:Destroy()
@@ -133,18 +189,9 @@ for _,Bodyps in next, CloneChar:GetDescendants() do
 	end 
 end
 
-local speed = 2
-
-for i,v in pairs(char:GetDescendants()) do
-	if v:IsA("Clothing") or v:IsA("ShirtGraphic") then
-		v:Destroy()
-	end
+if CloneChar:FindFirstChild("ForceField") then
+	CloneChar.ForceField:Destroy() 
 end
-
-if c:FindFirstChild("ForceField") then
-	c.ForceField:Destroy() 
-end
-
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Reanimated',Duration=5})
 
 ----------------------------------------------------------------------------------
