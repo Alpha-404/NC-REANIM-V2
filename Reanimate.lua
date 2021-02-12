@@ -32,10 +32,10 @@ function Joint(P1,P2,Pos,Rot)
 	AlignP.Attachment0 = AttB;
 	AlignO.Attachment1 = AttC;
 	AlignO.Attachment0 = AttD;
-	AttA.Name = P1.Name
-	AttB.Name = P1.Name
-	AttC.Name = P1.Name
-	AttD.Name = P1.Name
+	AttA.Name = "AlignP" .. P1.Name
+	AttB.Name = "AlignP" .. P1.Name
+	AttC.Name = "AlignO" .. P1.Name
+	AttD.Name = "AlignO" .. P1.Name
 end
 
 game:GetService("Players").LocalPlayer.Character.Archivable = true 
