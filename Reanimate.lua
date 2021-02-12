@@ -29,7 +29,7 @@ function Joint(P1,P2,Pos,Rot)
 	local AttC=Instance.new('Attachment',P2);
 	local AttD=Instance.new('Attachment',P1);
 	AttC.Orientation = Rot
-	AttA.Pos = Pos
+	AttA.Position = Pos
 	AlignP.Attachment1 = AttA;
 	AlignP.Attachment0 = AttB;
 	AlignO.Attachment1 = AttC;
@@ -108,38 +108,40 @@ local WDown, ADown, SDown, DDown, SpaceDown = false, false, false, false, false
 local KD = game:GetService("UserInputService").InputBegan:Connect(function(K, gay)
 	if gay then return end
 	if K.KeyCode == Enum.KeyCode.W then
-		WDown = true 
+		repeat
+			wait()
+			WDown = true 
+		until game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) == false
+		WDown = false
 	end
 	if K.KeyCode == Enum.KeyCode.A then
-		ADown = true 
+		repeat
+			wait()
+			ADown = true 
+		until game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) == false
+		ADown = false
 	end
 	if K.KeyCode == Enum.KeyCode.S then
-		SDown = true 
+		repeat
+			wait()
+			SDown = true 
+		until game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) == false
+		SDown = false
 	end
 	if K.KeyCode == Enum.KeyCode.D then
-		DDown = true 
-	end
-	if K.KeyCode == Enum.KeyCode.Space then
-		SpaceDown = true 
-	end 
-end)
-
-local KU = game:GetService("UserInputService").InputEnded:Connect(function(K)
-	if K.KeyCode == Enum.KeyCode.W then
-		WDown = false 
-	end
-	if K.KeyCode == Enum.KeyCode.A then
-		ADown = false 
-	end
-	if K.KeyCode == Enum.KeyCode.S then
-		SDown = false 
-	end
-	if K.KeyCode == Enum.KeyCode.D then
+		repeat
+			wait()
+			DDown = true 
+		until game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) == false
 		DDown = false 
 	end
 	if K.KeyCode == Enum.KeyCode.Space then
-		SpaceDown = false 
-	end
+		repeat
+			wait()
+			SpaceDown = true 
+		until game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.Space) == false
+		SpaceDown = false
+	end 
 end)
 
 function MoveClone(X,Y,Z)
@@ -147,13 +149,33 @@ function MoveClone(X,Y,Z)
 	CloneChar.Humanoid.WalkToPoint = LookVectorP.Position
 end
 
+local clonemover = game:GetService("RunService").Stepped:Connect(function()
+	if WDown then 
+		MoveClone(0,0,1e4) 
+	end
+	if ADown then 
+		MoveClone(1e4,0,0) 
+	end
+	if SDown then 
+		MoveClone(0,0,-1e4) 
+	end
+	if DDown then 
+		MoveClone(-1e4,0,0) 
+	end
+	if SpaceDown then 
+		CloneChar["Humanoid"].Jump = true 
+	end
+	if WDown ~= true and ADown ~= true and SDown ~= true and DDown ~= true then
+		workspace["Rig"].Humanoid.WalkToPoint = workspace["Rig"].HumanoidRootPart.Position 
+	end
+end)
 
 local Reset = Instance.new("BindableEvent")
 Reset.Event:Connect(function()
 	game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
-	KU:Disconnect()
 	KD:Disconnect()
 	ConvertVector:Disconnect()
+	clonemover:Disconnect()
 	Reset:Destroy()
 	DeadChar:Destroy()
 	CloneChar:Destroy()
