@@ -1,5 +1,3 @@
--------------------------------------------------------------------------------------------------------------
-
 if game:GetService("Players").LocalPlayer.Character:FindFirstChild("NAP Client Reanim V2") then
 	game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Already Reanimated',Duration=5})
 	return
@@ -393,7 +391,7 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	Joint(DeadChar["HumanoidRootPart"],CloneChar["HumanoidRootPart"],Vector3.new(0,0,0),Vector3.new(0,0,0))
 
 	for _,v in next, DeadChar:GetChildren() do
-		if v:IsA("Accessory") and CloneChar:FindFirstChild(v) then
+		if v:IsA("Accessory") and CloneChar:FindFirstChild(v.Name) then
 			Joint(v.Handle,CloneChar[v.Name].Handle,Vector3.new(0,0,0),Vector3.new(0,0,0))
 		end
 	end
@@ -409,5 +407,3 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	end
 end
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Reanimated',Duration=5})
-
-----------------------------------------------------------------------------------
