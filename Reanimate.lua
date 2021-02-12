@@ -9,31 +9,31 @@ game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Rean
 local p = game:GetService("Players").LocalPlayer
 local char = p.Character
 
-function Joint(Part0,Part1,Position,Angle)
-	local AlignPos = Instance.new('AlignPosition', Part1);
-	AlignPos.ApplyAtCenterOfMass = true;
-	AlignPos.MaxForce = 67752;
-	AlignPos.MaxVelocity = math.huge/9e110;
-	AlignPos.ReactionForceEnabled = false;
-	AlignPos.Responsiveness = 200;
-	AlignPos.RigidityEnabled = false;
-	local AlignOri = Instance.new('AlignOrientation', Part1);
-	AlignOri.MaxAngularVelocity = math.huge/9e110;
-	AlignOri.MaxTorque = 67752;
-	AlignOri.PrimaryAxisOnly = false;
-	AlignOri.ReactionTorqueEnabled = false;
-	AlignOri.Responsiveness = 200;
-	AlignOri.RigidityEnabled = false;
-	local AttachmentA=Instance.new('Attachment',Part1);
-	local AttachmentB=Instance.new('Attachment',Part0);
-	local AttachmentC=Instance.new('Attachment',Part1);
-	local AttachmentD=Instance.new('Attachment',Part0);
-	AttachmentC.Orientation = Angle
-	AttachmentA.Position = Position
-	AlignPos.Attachment1 = AttachmentA;
-	AlignPos.Attachment0 = AttachmentB;
-	AlignOri.Attachment1 = AttachmentC;
-	AlignOri.Attachment0 = AttachmentD;
+function Joint(P1,P2,Pos,Rot)
+	local AlignP = Instance.new('AlignPosition', P2);
+	AlignP.ApplyAtCenterOfMass = true;
+	AlignP.MaxForce = 67752;
+	AlignP.MaxVelocity = math.huge/9e110;
+	AlignP.ReactionForceEnabled = false;
+	AlignP.Responsiveness = 200;
+	AlignP.RigidityEnabled = true;
+	local AlignO = Instance.new('AlignOrientation', P2);
+	AlignO.MaxAngularVelocity = math.huge/9e110;
+	AlignO.MaxTorque = 67752;
+	AlignO.PrimaryAxisOnly = false;
+	AlignO.ReactionTorqueEnabled = false;
+	AlignO.Responsiveness = 200;
+	AlignO.RigidityEnabled = true;
+	local AttA=Instance.new('Attachment',P2);
+	local AttB=Instance.new('Attachment',P1);
+	local AttC=Instance.new('Attachment',P2);
+	local AttD=Instance.new('Attachment',P1);
+	AttC.Orientation = Rot
+	AttA.Pos = Pos
+	AlignP.Attachment1 = AttA;
+	AlignP.Attachment0 = AttB;
+	AlignO.Attachment1 = AttC;
+	AlignO.Attachment0 = AttD;
 end
 
 game:GetService("Players").LocalPlayer.Character.Archivable = true 
