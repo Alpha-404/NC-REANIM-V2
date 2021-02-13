@@ -61,7 +61,7 @@ if char.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 
 	game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fake"):Destroy() 
 	game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0 
-	game:GetService("Players").LocalPlayer.Character = workspace[game:GetService("Players").LocalPlayer.Name] 
+	game:GetService("Players").LocalPlayer.Character = char
 	wait(game:GetService("Players").RespawnTime + 0.2)
 	game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
 	CloneChar.Parent = workspace
