@@ -75,13 +75,10 @@ if char.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 	if CloneChar.Head:FindFirstChild("face") then 
 		CloneChar.Head:FindFirstChild("face"):Destroy() 
 	end
-	if workspace[game:GetService("Players").LocalPlayer.Name].Head:FindFirstChild("face") then 
-		workspace[game:GetService("Players").LocalPlayer.Name].Head:FindFirstChild("face").Parent = CloneChar.Head 
-	end
 
 	FalseChar:Destroy()
 
-	local DeadChar = workspace[game:GetService("Players").LocalPlayer.Name]
+	local DeadChar = char
 
 	local NCL = game:GetService("RunService").Stepped:Connect(function()
 		for idk,c in next, DeadChar:GetDescendants() do
@@ -217,7 +214,6 @@ if char.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 	if CloneChar:FindFirstChild("ForceField") then
 		CloneChar.ForceField:Destroy() 
 	end
-	CloneChar.Head.face:Destroy()
 
 elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 
@@ -243,7 +239,7 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 
 	game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fake"):Destroy() 
 	game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0 
-	game:GetService("Players").LocalPlayer.Character = workspace[game:GetService("Players").LocalPlayer.Name] 
+	game:GetService("Players").LocalPlayer.Character = char
 	wait(game:GetService("Players").RespawnTime + 0.2)
 	game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
 	CloneChar.Parent = workspace
@@ -257,13 +253,10 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	if CloneChar.Head:FindFirstChild("face") then 
 		CloneChar.Head:FindFirstChild("face"):Destroy() 
 	end
-	if workspace[game:GetService("Players").LocalPlayer.Name].Head:FindFirstChild("face") then 
-		workspace[game:GetService("Players").LocalPlayer.Name].Head:FindFirstChild("face").Parent = CloneChar.Head 
-	end
 
 	FalseChar:Destroy()
 
-	local DeadChar = workspace[game:GetService("Players").LocalPlayer.Name]
+	local DeadChar = char
 
 	local NCL = game:GetService("RunService").Stepped:Connect(function()
 		for idk,c in next, DeadChar:GetDescendants() do
@@ -351,7 +344,7 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 			CloneChar["Humanoid"].Jump = true 
 		end
 		if WDown ~= true and ADown ~= true and SDown ~= true and DDown ~= true then
-			workspace["Rig"].Humanoid.WalkToPoint = workspace["Rig"].HumanoidRootPart.Position 
+			workspace["Rig"].Humanoid.WalkToPoint = workspace["Rig"].HumanoidRootPart.Position
 		end
 	end)
 
@@ -410,7 +403,5 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	if DeadChar.Head:FindFirstChild("Neck") then
 		game.Players.LocalPlayer.Character:BreakJoints()
 	end
-	
-	CloneChar.Head.face:Destroy()
 end
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Reanimated',Duration=5})
