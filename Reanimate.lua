@@ -176,6 +176,7 @@ if char.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 		clonemover:Disconnect()
 		Reset:Destroy()
 		DeadChar:Destroy()
+		LookVectorP:Destroy()
 		CloneChar:Destroy()
 		local m = Instance.new("Model", workspace)
 		m.Name = "UwU"
@@ -354,6 +355,7 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 		clonemover:Disconnect()
 		Reset:Destroy()
 		DeadChar:Destroy()
+		LookVectorP:Destroy()
 		CloneChar:Destroy()
 		local m = Instance.new("Model", workspace)
 		m.Name = "UwU"
@@ -399,7 +401,7 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	end
 
 	if DeadChar.Head:FindFirstChild("Neck") then
-		game.Players.LocalPlayer.Character:BreakJoints()
+		game:GetService('Players').LocalPlayer.Character:BreakJoints()
 	end
 end
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Reanimated',Duration=5})
