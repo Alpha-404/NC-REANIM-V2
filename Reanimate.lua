@@ -1,3 +1,5 @@
+--Credit to mizt for the base of the reanimate
+
 if game:GetService("Players").LocalPlayer.Character:FindFirstChild("NAP Client Reanim V2") then
 	game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Already Reanimated',Duration=5})
 	return
@@ -24,18 +26,14 @@ function Joint(P1,P2,Pos,Rot)
 	AlignO.RigidityEnabled = true;
 	local AttA=Instance.new('Attachment',P2);
 	local AttB=Instance.new('Attachment',P1);
-	local AttC=Instance.new('Attachment',P2);
-	local AttD=Instance.new('Attachment',P1);
-	AttC.Orientation = Rot
+	AttA.Orientation = Rot
 	AttA.Position = Pos
 	AlignP.Attachment1 = AttA;
 	AlignP.Attachment0 = AttB;
-	AlignO.Attachment1 = AttC;
-	AlignO.Attachment0 = AttD;
-	AttA.Name = "AlignP" .. P1.Name
-	AttB.Name = "AlignP" .. P1.Name
-	AttC.Name = "AlignO" .. P1.Name
-	AttD.Name = "AlignO" .. P1.Name
+	AlignO.Attachment1 = AttA;
+	AlignO.Attachment0 = AttB;
+	AttA.Name = "Align" .. P1.Name
+	AttB.Name = "Align" .. P1.Name
 end
 
 game:GetService("Players").LocalPlayer.Character.Archivable = true 
@@ -191,13 +189,13 @@ if char.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 	end)
 	game:GetService("StarterGui"):SetCore("ResetButtonCallback", Reset)
 
-	Joint(DeadChar["Head"],CloneChar["Head"],Vector3.new(0,0,0),Vector3.new(0,0,0))
-	Joint(DeadChar["Torso"],CloneChar["Torso"],Vector3.new(0,0,0),Vector3.new(0,0,0))
-	Joint(DeadChar["Left Arm"],CloneChar["Left Arm"],Vector3.new(0,0,0),Vector3.new(0,0,0))
-	Joint(DeadChar["Right Arm"],CloneChar["Right Arm"],Vector3.new(0,0,0),Vector3.new(0,0,0))
-	Joint(DeadChar["Left Leg"],CloneChar["Left Leg"],Vector3.new(0,0,0),Vector3.new(0,0,0))
-	Joint(DeadChar["Right Leg"],CloneChar["Right Leg"],Vector3.new(0,0,0),Vector3.new(0,0,0))
-	Joint(DeadChar["HumanoidRootPart"],CloneChar["HumanoidRootPart"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+	Joint(DeadChar["Head"], CloneChar["Head"], Vector3.new(0,0,0), Vector3.new(0,0,0))
+	Joint(DeadChar["Torso"], CloneChar["Torso"], Vector3.new(0,0,0), Vector3.new(0,0,0))
+	Joint(DeadChar["Left Arm"], CloneChar["Left Arm"], Vector3.new(0,0,0), Vector3.new(0,0,0))
+	Joint(DeadChar["Right Arm"], CloneChar["Right Arm"],Vector3.new(0,0,0), Vector3.new(0,0,0))
+	Joint(DeadChar["Left Leg"], CloneChar["Left Leg"], Vector3.new(0,0,0), Vector3.new(0,0,0))
+	Joint(DeadChar["Right Leg"], CloneChar["Right Leg"], Vector3.new(0,0,0), Vector3.new(0,0,0))
+	Joint(DeadChar["HumanoidRootPart"], CloneChar["HumanoidRootPart"], Vector3.new(0,0,0), Vector3.new(0,0,0))
 
 	for _,v in next, DeadChar:GetChildren() do
 		if v:IsA("Accessory") then
@@ -369,24 +367,24 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	end)
 	game:GetService("StarterGui"):SetCore("ResetButtonCallback", Reset)
 
-	Joint(DeadChar["Head"],CloneChar["Head"],Vector3.new(0,0,0),Vector3.new(0,0,0))
-	Joint(DeadChar["UpperTorso"],CloneChar["Torso"],Vector3.new(0,0.2,0),Vector3.new(0,0,0))
-	Joint(DeadChar["LowerTorso"],CloneChar["Torso"],Vector3.new(0,-0.78,0),Vector3.new(0,0,0))
-	Joint(DeadChar["LeftUpperArm"],CloneChar["Left Arm"],Vector3.new(0,0.375,0),Vector3.new(0,0,0))
-	Joint(DeadChar["LeftLowerArm"],CloneChar["Left Arm"],Vector3.new(0,-0.215,0),Vector3.new(0,0,0))
-	Joint(DeadChar["LeftHand"],CloneChar["Left Arm"],Vector3.new(0,-0.825,0),Vector3.new(0,0,0))
-	Joint(DeadChar["RightUpperArm"],CloneChar["Right Arm"],Vector3.new(0,0.375,0),Vector3.new(0,0,0))
-	Joint(DeadChar["RightLowerArm"],CloneChar["Right Arm"],Vector3.new(0,-0.215,0),Vector3.new(0,0,0))
-	Joint(DeadChar["RightHand"],CloneChar["Right Arm"],Vector3.new(0,-0.825,0),Vector3.new(0,0,0))
+	Joint(DeadChar["Head"], CloneChar["Head"], Vector3.new(0,0,0), Vector3.new(0,0,0))
+	Joint(DeadChar["UpperTorso"], CloneChar["Torso"], Vector3.new(0,0.2,0), Vector3.new(0,0,0))
+	Joint(DeadChar["LowerTorso"], CloneChar["Torso"], Vector3.new(0,-0.78,0), Vector3.new(0,0,0))
+	Joint(DeadChar["LeftUpperArm"], CloneChar["Left Arm"], Vector3.new(0,0.375,0), Vector3.new(0,0,0))
+	Joint(DeadChar["LeftLowerArm"], CloneChar["Left Arm"], Vector3.new(0,-0.215,0), Vector3.new(0,0,0))
+	Joint(DeadChar["LeftHand"], CloneChar["Left Arm"], Vector3.new(0,-0.825,0), Vector3.new(0,0,0))
+	Joint(DeadChar["RightUpperArm"], CloneChar["Right Arm"], Vector3.new(0,0.375,0), Vector3.new(0,0,0))
+	Joint(DeadChar["RightLowerArm"], CloneChar["Right Arm"], Vector3.new(0,-0.215,0) ,Vector3.new(0,0,0))
+	Joint(DeadChar["RightHand"], CloneChar["Right Arm"], Vector3.new(0,-0.825,0), Vector3.new(0,0,0))
 
-	Joint(DeadChar["LeftUpperLeg"],CloneChar["Left Leg"],Vector3.new(0,0.575,0),Vector3.new(0,0,0))
-	Joint(DeadChar["LeftLowerLeg"],CloneChar["Left Leg"],Vector3.new(0,-0.137,0),Vector3.new(0,0,0))
-	Joint(DeadChar["LeftFoot"],CloneChar["Left Leg"],Vector3.new(0,-0.787,0),Vector3.new(0,0,0))
-	Joint(DeadChar["RightUpperLeg"],CloneChar["Right Leg"],Vector3.new(0,0.575,0),Vector3.new(0,0,0))
-	Joint(DeadChar["RightLowerLeg"],CloneChar["Right Leg"],Vector3.new(0,-0.137,0),Vector3.new(0,0,0))
-	Joint(DeadChar["RightFoot"],CloneChar["Right Leg"],Vector3.new(0,-0.787,0),Vector3.new(0,0,0))
+	Joint(DeadChar["LeftUpperLeg"], CloneChar["Left Leg"], Vector3.new(0,0.575,0), Vector3.new(0,0,0))
+	Joint(DeadChar["LeftLowerLeg"], CloneChar["Left Leg"], Vector3.new(0,-0.137,0), Vector3.new(0,0,0))
+	Joint(DeadChar["LeftFoot"], CloneChar["Left Leg"], Vector3.new(0,-0.787,0), Vector3.new(0,0,0))
+	Joint(DeadChar["RightUpperLeg"], CloneChar["Right Leg"], Vector3.new(0,0.575,0), Vector3.new(0,0,0))
+	Joint(DeadChar["RightLowerLeg"], CloneChar["Right Leg"], Vector3.new(0,-0.137,0), Vector3.new(0,0,0))
+	Joint(DeadChar["RightFoot"], CloneChar["Right Leg"], Vector3.new(0,-0.787,0), Vector3.new(0,0,0))
 
-	Joint(DeadChar["HumanoidRootPart"],CloneChar["HumanoidRootPart"],Vector3.new(0,0,0),Vector3.new(0,0,0))
+	Joint(DeadChar["HumanoidRootPart"], CloneChar["HumanoidRootPart"], Vector3.new(0,0,0), Vector3.new(0,0,0))
 
 	for _,v in next, DeadChar:GetChildren() do
 		if v:IsA("Accessory") and CloneChar:FindFirstChild(v.Name) then
@@ -405,3 +403,4 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	end
 end
 game:GetService("StarterGui"):SetCore("SendNotification",{Title="NAP Client Reanimate V2",Text='Reanimated',Duration=5})
+Instance.new('BoolValue', DeadChar).Name = "NAP Client Reanim V2"
