@@ -219,7 +219,12 @@ elseif char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	game:GetService("Players").LocalPlayer.Character.Archivable = true 
 
 	local CloneChar = game:GetObjects("rbxassetid://6297951239")[1]
-
+	for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do 
+		if v:IsA("Accessory") then
+			v:Clone().Parent = CloneChar
+		end
+	end
+	
 	game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 0 
 	game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 0 
 	game:GetService("Players").LocalPlayer.Character.Humanoid.AutoRotate = false
