@@ -38,6 +38,13 @@ if clonec.Head:FindFirstChild("face") then clonec.Head.face:Destroy() end
 c.Humanoid.Animator:Destroy()
 c.Animate:Destroy()
 
+if keep_anims = nil then
+	keep_anims = true
+end
+
+if keep_anims == false then
+	clonec.Animate:Destroy()
+end
 c.HumanoidRootPart:Destroy()
 
 local LookVectorPart = Instance.new("Part", workspace) 
