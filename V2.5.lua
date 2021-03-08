@@ -276,13 +276,6 @@ for _,c in pairs(clonec:GetDescendants()) do
 end
 
 if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-	c.Torso["Left Shoulder"]:Destroy()
-	c.Torso["Right Shoulder"]:Destroy()
-	c.Torso["Left Hip"]:Destroy()
-	c.Torso["Right Hip"]:Destroy()
-	wait(game:GetService("Players").RespawnTime + .2)
-	c.Torso["Neck"]:Destroy()
-else
 	wait(game:GetService("Players").RespawnTime + .2)
 	for i,v in pairs(c:GetDescendants()) do
 		if v:IsA("Motor6D") and not v:IsDescendantOf(clonec) then
