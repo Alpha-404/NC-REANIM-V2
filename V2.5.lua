@@ -275,11 +275,10 @@ for _,c in pairs(clonec:GetDescendants()) do
 	end
 end
 
-if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+
 	wait(game:GetService("Players").RespawnTime + .2)
 	for i,v in pairs(c:GetDescendants()) do
 		if v:IsA("Motor6D") and not v:IsDescendantOf(clonec) then
 			v:Destroy()
 		end
 	end
-end
