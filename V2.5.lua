@@ -146,8 +146,6 @@ end
 c.Humanoid.Animator:Destroy()
 c.Animate:Destroy()
 
-c.HumanoidRootPart:Destroy()
-
 local LookVectorPart = Instance.new("Part", workspace) 
 LookVectorPart.CanCollide = false 
 LookVectorPart.Transparency = 1
@@ -240,6 +238,7 @@ if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 	Joint(c["Right Arm"],clonec["Right Arm"])
 	Joint(c["Left Leg"],clonec["Left Leg"])
 	Joint(c["Right Leg"],clonec["Right Leg"])
+	Joint(c["HumanoidRootPart"], clonec["HumanoidRootPart"])
 
 	spawn(function()
 		while true do
@@ -264,6 +263,7 @@ elseif c.Humanoid.RigType == Enum.HumanoidRigType.R15 then
 	Joint2(c["RightUpperLeg"], clonec["Right Leg"], Vector3.new(0,0.575,0), Vector3.new(0,0,0))
 	Joint2(c["RightLowerLeg"], clonec["Right Leg"], Vector3.new(0,-0.137,0), Vector3.new(0,0,0))
 	Joint2(c["RightFoot"], clonec["Right Leg"], Vector3.new(0,-0.787,0), Vector3.new(0,0,0))
+	Joint(c["HumanoidRootPart"], clonec["HumanoidRootPart"])
 end
 
 for _,c in pairs(clonec:GetDescendants()) do
@@ -276,9 +276,9 @@ for _,c in pairs(clonec:GetDescendants()) do
 end
 
 
-	wait(game:GetService("Players").RespawnTime + .2)
-	for i,v in pairs(c:GetDescendants()) do
-		if v:IsA("Motor6D") and not v:IsDescendantOf(clonec) then
-			v:Destroy()
-		end
+wait(game:GetService("Players").RespawnTime + .2)
+for i,v in pairs(c:GetDescendants()) do
+	if v:IsA("Motor6D") and not v:IsDescendantOf(clonec) then
+		v:Destroy()
 	end
+end
