@@ -54,6 +54,7 @@ local p = game:GetService("Players").LocalPlayer
 local c = p.Character
 p.Character.Archivable = true 
 
+local ConvertVector
 spawn(function() --so we don't overwrite anything
 	local temp = Instance.new("Model", workspace)
 	Instance.new("Humanoid",temp)
@@ -71,6 +72,7 @@ spawn(function() --so we don't overwrite anything
 	end
 	local Reset = Instance.new("BindableEvent")
 	Reset.Event:Connect(function()
+		ConvertVector:Disconnect()
 		game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
 		Reset:Destroy()
 		local m = Instance.new("Model", workspace)
@@ -115,7 +117,6 @@ if c.Humanoid.RigType == Enum.HumanoidRigType.R6 then
 	clonec.HumanoidRootPart.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,2,0)
 	wait() 
 	clonec.Humanoid.BreakJointsOnDeath = false
-	workspace.CurrentCamera.CameraSubject = clonec.Humanoid
 	clonec.Name = "Rig" 
 	clonec.Humanoid.DisplayDistanceType = "None"
 	if clonec.Head:FindFirstChild("face") then clonec.Head.face:Destroy() end
@@ -125,7 +126,6 @@ else
 	clonec.HumanoidRootPart.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,2,0)
 	wait() 
 	clonec.Humanoid.BreakJointsOnDeath = false
-	workspace.CurrentCamera.CameraSubject = clonec.Humanoid
 	clonec.Name = "Rig" 
 	clonec.Humanoid.DisplayDistanceType = "None"
 	if clonec.Head:FindFirstChild("face") then clonec.Head.face:Destroy() end
@@ -149,7 +149,8 @@ c.Animate:Destroy()
 local LookVectorPart = Instance.new("Part", workspace) 
 LookVectorPart.CanCollide = false 
 LookVectorPart.Transparency = 1
-local ConvertVector = game:GetService("RunService").Heartbeat:Connect(function()
+ConvertVector = game:GetService("RunService").Heartbeat:Connect(function()
+	if clonec == nil then ConvertVector:Disconnect() return end
 	local lookVec = workspace.CurrentCamera.CFrame.lookVector
 	local Root = clonec["HumanoidRootPart"]
 	LookVectorPart.Position = Root.Position
